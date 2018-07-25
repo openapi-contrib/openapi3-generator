@@ -28,7 +28,7 @@ program
   .parse(process.argv);
 
 if (!openapiFile) {
-  console.error(red('> Path to Swagger file not provided.'));
+  console.error(red('> Path to OpenAPI file not provided.'));
   program.help(); // This exits the process
 }
 
