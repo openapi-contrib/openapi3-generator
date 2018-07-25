@@ -20,7 +20,7 @@ npm install -g openapi3-generator
 ### From the command-line interface (CLI)
 
 ```bash
-  Usage: og [options] <openapiFile> <template>
+  Usage: og [options] <openapiFileOrURL> <template>
 
 
   Options:

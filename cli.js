@@ -18,9 +18,14 @@ const parseOutput = dir => path.resolve(dir);
 
 program
   .version(packageInfo.version)
-  .arguments('<openapiFile> <template>')
+  .arguments('<openapiFileOrURL> <template>')
   .action((openapiFilePath, tmpl) => {
-    openapiFile = path.resolve(openapiFilePath);
+    if (!openapiFilePath.startsWith('http:') && !openapiFilePath.startsWith('https:')) {
+      openapiFile = path.resolve(openapiFilePath);
+    } else {
+      openapiFile = openapiFilePath;
+    }
+
     template = tmpl;
   })
   .option('-o, --output <outputDir>', 'directory where to put the generated files (defaults to current directory)', parseOutput, process.cwd())
