@@ -11,12 +11,6 @@ To use it from the CLI:
 npm install -g openapi3-generator
 ```
 
-To use it as a module in your project:
-
-```bash
-npm install --save openapi3-generator
-```
-
 ## Requirements
 
 * Node.js v7.6+

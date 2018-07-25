@@ -5,6 +5,7 @@ const program = require('commander');
 const { inspect } = require('util');
 const packageInfo = require('./package.json');
 const generator = require('./lib/generator');
+
 const red = text => `\x1b[31m${text}\x1b[0m`;
 const magenta = text => `\x1b[35m${text}\x1b[0m`;
 const yellow = text => `\x1b[33m${text}\x1b[0m`;
