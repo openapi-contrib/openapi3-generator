@@ -1,0 +1,61 @@
+{
+  "name": "openapi3-generator",
+  "main": "./lib/generator.js",
+  "version": "0.1.0",
+  "description": "Use your API OpenAPI 3 definition to generate code, documentation, and literally anything you need.",
+  "bin": {
+    "og": "./cli.js",
+    "openapi3-generator": "./cli.js"
+  },
+  "bugs": {
+    "url": "https://github.com/fmvilas/openapi3-generator/issues"
+  },
+  "engines": {
+    "node": ">=7.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/fmvilas/openapi3-generator.git"
+  },
+  "keywords": [
+    "openapi",
+    "openapi3",
+    "OASv3",
+    "rest",
+    "es6",
+    "es7",
+    "es2015",
+    "node.js",
+    "codegen",
+    "docgen",
+    "generator",
+    "documentation",
+    "markdown",
+    "express"
+  ],
+  "author": {
+    "name": "Fran Méndez",
+    "email": "fmvilas@gmail.com",
+    "url": "http://fmvilas.com"
+  },
+  "contributors": [
+    {
+      "name": "Richard Klose",
+      "email": "richard.klose@gmail.com"
+    }
+  ],
+  "homepage": "https://github.com/fmvilas/openapi3-generator",
+  "dependencies": {
+    "commander": "^2.12.2",
+    "fs.extra": "1.3.2",
+    "handlebars": "^4.0.4",
+    "js-yaml": "^3.10.0",
+    "json-schema-ref-parser": "^4.0.4",
+    "lodash": "3.10.1",
+    "markdown-it": "^8.4.2",
+    "oas-validator": "^1.1.7",
+    "openapi-sampler": "^1.0.0-beta.13",
+    "project-name-generator": "2.1.1",
+    "word-wrap": "1.1.0"
+  }
+}
