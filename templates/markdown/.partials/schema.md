@@ -1,3 +1,5 @@
+{{#if renderSlug}}<a id="{{schema.slug}}" />{{/if}}
+
 {{#unless hideTitle}}
 {{#if schema.title}}
 #### {{schema.title}}

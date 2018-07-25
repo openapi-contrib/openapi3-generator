@@ -56,6 +56,7 @@
     "oas-validator": "^1.1.7",
     "openapi-sampler": "^1.0.0-beta.13",
     "project-name-generator": "2.1.1",
+    "slugg": "^1.2.1",
     "word-wrap": "1.1.0"
   }
 }

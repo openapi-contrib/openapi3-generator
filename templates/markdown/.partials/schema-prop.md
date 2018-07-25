@@ -6,7 +6,7 @@
     {{~#if prop.oneOf}}oneOf{{~/if}}
     {{~#if prop.items.type}}({{prop.items.type}}){{~/if}}
   </td>
-  <td>{{{prop.description}}}</td>
+  <td>{{{prop.descriptionAsHTML}}}</td>
   <td>{{{acceptedValues prop.enum}}}</td>
 </tr>
 {{#each prop.anyOf}}

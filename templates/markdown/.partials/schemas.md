@@ -2,6 +2,6 @@
 ## Schemas
 
 {{#each openapi.components.schemas}}
-  {{~>schema schema=. schemaName=@key~}}
+  {{~>schema schema=. schemaName=@key renderSlug=true~}}
 {{/each}}
 {{/if}}

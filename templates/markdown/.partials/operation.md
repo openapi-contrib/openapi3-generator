@@ -1,3 +1,5 @@
+<a id="{{operation.slug}}" />
+
 {{#if operation.summary}}
 > {{{operation.summary}}}
 
