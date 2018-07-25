@@ -102,7 +102,7 @@ In this example the generated directory structure will be like this:
 
 ### Template file content
 The generator passes the OpenAPI spec to template files, so all information should be available there.
-In addition to that, the code generator adds a bit [more data](#data-that-is-passed-into-handlebars) that can be helpful.
+In addition to that, the code generator adds a bit [more data](#data-passed-to-handlebars-templates) that can be helpful.
 
 #### Examples:
 ##### Dynamically require files in JavaScript
