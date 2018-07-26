@@ -1,5 +1,8 @@
 <tr>
-  <td>{{tree path}}{{propName}} {{#if required}}<strong>(required)</strong>{{/if}}</td>
+  <td>
+    {{#if prop.deprecated}}<s>{{tree path}}{{propName}}</s> (deprecated){{else}}{{tree path}}{{propName}}{{/if}}
+    {{#if required}}<strong>(required)</strong>{{/if}}
+  </td>
   <td>
     {{prop.type}}
     {{~#if prop.anyOf}}anyOf{{~/if}}
