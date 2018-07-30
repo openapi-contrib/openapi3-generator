@@ -28,6 +28,7 @@ npm install -g openapi3-generator
     -V, --version                  output the version number
     -o, --output <outputDir>       directory where to put the generated files (defaults to current directory)
     -t, --templates <templateDir>  directory where templates are located (defaults to internal templates directory)
+    -b, --basedir <baseDir>        directory to use as the base when resolving local file references (defaults to OpenAPI file directory)
     -h, --help                     output usage information
 ```
 

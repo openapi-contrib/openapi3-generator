@@ -14,11 +14,16 @@
 ###### {{contentTypeName}}
 {{> schema schema=schema schemaName='body' hideTitle=true hideExamples=true}}
 
-{{> example example=schema.example generatedExample=schema.generatedExample }}
 {{#if examples}}
 {{#each examples as |example exampleName|}}
-{{> example example=example.value description=example.description}}
+{{> example example=example.value description=example.description externalValue=example.externalValue}}
 {{/each}}
+{{else}}
+{{#if example}}
+{{> example example=example.value description=example.description externalValue=example.externalValue}}
+{{else}}
+{{> example example=schema.example generatedExample=schema.generatedExample }}
+{{/if}}
 {{/if}}
 
 {{/each}}
@@ -29,11 +34,16 @@
 #### Request body
 {{> schema schema=../schema schemaName='body' hideTitle=true hideExamples=true}}
 
-{{> example example=schema.example generatedExample=schema.generatedExample }}
 {{#if ../examples}}
 {{#each ../examples as |example exampleName|}}
 {{> example example=example.value description=example.description}}
 {{/each}}
+{{else}}
+{{#if example}}
+{{> example example=example.value description=example.description }}
+{{else}}
+{{> example example=schema.example generatedExample=schema.generatedExample }}
+{{/if}}
 {{/if}}
 
 {{/equal}}

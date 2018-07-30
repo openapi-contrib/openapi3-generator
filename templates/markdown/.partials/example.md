@@ -17,3 +17,10 @@
 ```
 {{/if}}
 {{/if}}
+
+{{#if externalValue}}
+{{#unless example}}
+##### Example
+{{/unless}}
+[Download example]({{externalValue}})
+{{/if}}
