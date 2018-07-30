@@ -14,20 +14,13 @@
 ###### {{contentTypeName}}
 {{> schema schema=schema schemaName='body' hideTitle=true hideExamples=true}}
 
-{{#if schema.example}}
-##### Example
+{{> example example=schema.example generatedExample=schema.generatedExample }}
+{{#if examples}}
+{{#each examples as |example exampleName|}}
+{{> example example=example.value description=example.description}}
+{{/each}}
+{{/if}}
 
-```json
-{{{stringify schema.example}}}
-```
-{{else}}
-{{#if schema.generatedExample}}
-##### Example of payload _(generated)_
-```json
-{{{stringify schema.generatedExample}}}
-```
-{{/if}}
-{{/if}}
 {{/each}}
 {{/if}}
 
@@ -36,20 +29,13 @@
 #### Request body
 {{> schema schema=../schema schemaName='body' hideTitle=true hideExamples=true}}
 
-{{#if ../example}}
-##### Example
+{{> example example=schema.example generatedExample=schema.generatedExample }}
+{{#if ../examples}}
+{{#each ../examples as |example exampleName|}}
+{{> example example=example.value description=example.description}}
+{{/each}}
+{{/if}}
 
-```json
-{{{stringify ../example}}}
-```
-{{else}}
-{{#if ../generatedExample}}
-##### Example of payload _(generated)_
-```json
-{{{stringify ../generatedExample}}}
-```
-{{/if}}
-{{/if}}
 {{/equal}}
 {{/each}}
 
