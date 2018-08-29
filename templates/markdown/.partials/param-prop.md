@@ -12,7 +12,7 @@
   </td>
   <td>{{prop.in}}</td>
   <td>{{{prop.descriptionAsHTML}}}</td>
-  <td>{{{acceptedValues prop.enum}}}</td>
+  <td>{{{acceptedValues prop.schema.enum}}}</td>
 </tr>
 {{#each prop.anyOf}}
 {{> paramProp prop=. propName=@key path=(buildPath ../propName ../path @key)}}
