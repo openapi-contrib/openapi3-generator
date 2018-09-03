@@ -1,5 +1,5 @@
 <tr>
-  <td>{{tree path}}{{propName}} {{#if required}}<strong>(required)</strong>{{/if}}</td>
+  <td>{{tree path}}{{propName}} {{#if required}} <strong>(required)</strong>{{/if}}</td>
   <td>
     {{#if prop.schema}}
     {{prop.schema.type}}
