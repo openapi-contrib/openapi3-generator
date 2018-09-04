@@ -8,6 +8,22 @@
 {{{operation.description}}}
 {{/if}}
 
+{{#if operation.pathParams}}
+{{> pathParams pathParams=operation.pathParams}}
+{{/if}}
+
+{{#if operation.headers}}
+{{> headers headers=operation.headers}}
+{{/if}}
+
+{{#if operation.queryParams}}
+{{> queryParams queryParams=operation.queryParams}}
+{{/if}}
+
+{{#if operation.cookieParams}}
+{{> cookieParams cookieParams=operation.cookieParams}}
+{{/if}}
+
 {{#if operation.requestBody}}
 #### Request body
 {{#each operation.requestBody.content as |contentType contentTypeName| }}
@@ -48,12 +64,6 @@
 
 {{/equal}}
 {{/each}}
-
-{{#if operation.parameters}}
-#### Parameters
-
-{{> parameters params=operation.parameters hideTitle=true}}
-{{/if}}
 
 {{#if operation.responses}}
 #### Responses

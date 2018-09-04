@@ -1,10 +1,7 @@
-{{#unless hideTitle}}
-#### Parameters
-{{/unless}}
+#### Headers
 
 {{#each params as |param|}}
-{{#equal param.in 'body'}}
-{{else}}
+{{#equal param.in 'header'}}
 {{#if param.name}}
 ##### {{param.name}}
 {{/if}}

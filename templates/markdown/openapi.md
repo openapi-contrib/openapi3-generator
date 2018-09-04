@@ -15,7 +15,7 @@
 {{#each openapi.paths as |path pathName|}}
 {{#each path as |op opName|}}
 {{#validMethod opName}}
-  - [`{{uppercase opName}}` {{pathName}}](#{{op.slug}})
+  - [`{{uppercase opName}}` {{pathName}}](#{{op.slug}}) {{#if op.deprecated}}_(deprecated)_{{/if}}
 {{/validMethod}}
 {{/each}}
 {{/each}}
