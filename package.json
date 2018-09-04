@@ -1,7 +1,7 @@
 {
   "name": "openapi3-generator",
   "main": "./lib/generator.js",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Use your API OpenAPI 3 definition to generate code, documentation, and literally anything you need.",
   "bin": {
     "og": "./cli.js",
@@ -55,7 +55,7 @@
     "markdown-it": "^8.4.2",
     "oas-validator": "^1.1.7",
     "openapi-sampler": "^1.0.0-beta.13",
-    "project-name-generator": "2.1.1",
+    "project-name-generator": "^2.1.5",
     "slugg": "^1.2.1",
     "word-wrap": "1.1.0"
   }
