@@ -8,7 +8,7 @@
 * [Terms of Service](#termsOfService)
 {{/if}}
 {{#if openapi.servers}}
-* [Connection Details](#servers)
+* [Servers](#servers)
 {{/if}}
 {{#if openapi.paths}}
 * [Paths](#paths)
@@ -32,6 +32,8 @@
 {{/if}}
 
 {{> info}}
+
+{{> servers}}
 
 {{> security}}
 
