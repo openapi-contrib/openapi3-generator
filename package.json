@@ -1,7 +1,7 @@
 {
   "name": "openapi3-generator",
   "main": "./lib/generator.js",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "Use your API OpenAPI 3 definition to generate code, documentation, and literally anything you need.",
   "bin": {
     "og": "./cli.js",
