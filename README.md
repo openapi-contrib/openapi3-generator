@@ -60,11 +60,11 @@ Assuming we have the following OpenAPI Spec:
 openapi: "3.0.0"
 info:
   version: 1.0.0
-  title: Swagger Petstore
+  title: OpenAPI Petstore
   license:
     name: MIT
 servers:
-  - url: http://petstore.swagger.io/v1
+  - url: http://petstore.openapi.io/v1
 paths:
   /pet:
     get:...
@@ -108,7 +108,7 @@ In addition to that, the code generator adds a bit [more data](#data-passed-to-h
 #### Examples:
 ##### Dynamically require files in JavaScript
 ```mustache
-{{#each @root.swagger.endpoints}}
+{{#each @root.openapi.endpoints}}
 const {{.}} = require('./routes/{{.}}.route.js')
 {{/each}}
 ```
@@ -122,8 +122,7 @@ const user = require('./routes/user.route.js')
 | Param | Type | Description |
 | --- | --- | --- |
 |openapi|object|The OpenAPI spec.|
-|swagger|object|The OpenAPI spec (convenience alias).|
-|swagger.endpoints| object | All first level endpoints (e.g  `pet` and `user`) |
+|openapi.endpoints| object | All first level endpoints (e.g  `pet` and `user`) |
 
 ### Custom handlebars helpers
 If your template needs Handlebars helpers, you can define them in a directory called `.helpers` inside your template.

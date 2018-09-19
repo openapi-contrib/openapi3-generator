@@ -1,7 +1,7 @@
 {
   "name": "{{package.name}}",
-  "description": "{{inline swagger.info.description}}",
-  "version": "{{swagger.info.version}}",
+  "description": "{{inline openapi.info.description}}",
+  "version": "{{openapi.info.version}}",
   "scripts": {
     "start": "node src/bin/www",
     "dev": "node src/bin/www | bunyan"

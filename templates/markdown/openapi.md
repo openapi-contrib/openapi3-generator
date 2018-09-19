@@ -1,6 +1,6 @@
-# {{swagger.info.title}}
+# {{openapi.info.title}}
 
-{{{swagger.info.descriptionAsHTML}}}
+{{{openapi.info.descriptionAsHTML}}}
 
 ## Table of Contents
 
