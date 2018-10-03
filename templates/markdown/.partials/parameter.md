@@ -20,3 +20,13 @@
     {{/each}}
   </tbody>
 </table>
+
+{{#unless hideExamples}}
+{{#if schema.example}}
+##### Example
+
+```json
+{{{stringify param.schema.example}}}
+```
+{{/if}}
+{{/unless}}
