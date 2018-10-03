@@ -14,11 +14,11 @@ app.use(cookieParser());
 /*
  * Routes
  */
-{{#each @root.swagger.endpoints}}
-{{#endsWith @root.swagger.basePath '/'}}
-app.use('{{@root.swagger.basePath}}{{..}}', require('./routes/{{..}}'));
+{{#each @root.openapi.endpoints}}
+{{#endsWith @root.openapi.basePath '/'}}
+app.use('{{@root.openapi.basePath}}{{..}}', require('./routes/{{..}}'));
 {{else}}
-app.use('{{@root.swagger.basePath}}/{{..}}', require('./routes/{{..}}'));
+app.use('{{@root.openapi.basePath}}/{{..}}', require('./routes/{{..}}'));
 {{/endsWith}}
 {{/each}}
 

@@ -1,3 +1,3 @@
-# {{swagger.info.title}}
+# {{openapi.info.title}}
 
-{{swagger.info.description}}
+{{openapi.info.description}}

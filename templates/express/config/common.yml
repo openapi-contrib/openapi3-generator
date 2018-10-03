@@ -3,7 +3,7 @@ defaults: &defaults
     port: 3000
 
   logger:
-    name: {{swagger.info.title}}
+    name: {{openapi.info.title}}
     level: debug
     levels:
       trace:
