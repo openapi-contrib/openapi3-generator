@@ -1,10 +1,12 @@
-const Handlebars = require('handlebars');
+module.exports = (_, Handlebars) =>{
 
-Handlebars.registerHelper('tree', path => {
-  if (!path) return '';
-  const filteredPaths = path.split('.').filter(Boolean);
-  if (!filteredPaths.length) return;
-  const dottedPath = filteredPaths.join('.');
-
-  return `${dottedPath}.`;
-});
+  Handlebars.registerHelper('tree', path => {
+    if (!path) return '';
+    const filteredPaths = path.split('.').filter(Boolean);
+    if (!filteredPaths.length) return;
+    const dottedPath = filteredPaths.join('.');
+  
+    return `${dottedPath}.`;
+  });
+  
+}
