@@ -1,4 +1,4 @@
-module.exports = (_, Handlebars) =>{
+module.exports = (Handlebars, _) =>{
 
   /**
    * Uppercases a string.
@@ -6,5 +6,5 @@ module.exports = (_, Handlebars) =>{
   Handlebars.registerHelper('uppercase', (str) => {
     return str.toUpperCase();
   });
-  
+
 }

@@ -1,4 +1,4 @@
-module.exports = (_, Handlebars) =>{
+module.exports = (Handlebars, _) =>{
 
   Handlebars.registerHelper('equal', (lvalue, rvalue, options) => {
     if (arguments.length < 3)
@@ -6,7 +6,7 @@ module.exports = (_, Handlebars) =>{
     if (lvalue!==rvalue) {
       return options.inverse(this);
     }
-  
+
     return options.fn(this);
   });
 

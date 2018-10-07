@@ -1,4 +1,4 @@
-module.exports = (_, Handlebars) =>{
+module.exports = (Handlebars, _) =>{
 
   Handlebars.registerHelper('buildPath', (propName, path, key) => {
     if (!path) return propName;

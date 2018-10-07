@@ -1,4 +1,4 @@
-module.exports = (_, Handlebars) =>{
+module.exports = (Handlebars, _) =>{
 
   Handlebars.registerHelper('stringify', json => {
     try {

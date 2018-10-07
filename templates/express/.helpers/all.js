@@ -1,7 +1,7 @@
 // Module constructor provides dependency injection from the generator instead of relying on require's cache here to ensure
 // the same instance of Handlebars gets the helpers installed and Lodash is definitiely available
 // regardless of where remote templates reside: in another Node project or a plain directory, which may have different or no modules available.
-module.exports = (_, Handlebars) =>{
+module.exports = (Handlebars, _) =>{
 
   /**
    * Compares two values.
