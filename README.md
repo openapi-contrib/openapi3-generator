@@ -127,12 +127,12 @@ const user = require('./routes/user.route.js')
 ### Custom handlebars helpers
 If your template needs Handlebars helpers, you can define them in a directory called `.helpers` inside your template.
 
-Check out some examples in the [markdown](./markdown/.helpers) template.
+Check out some examples in the [markdown](./templates/markdown/.helpers) template.
 
 ### Using handlebars partials
 If you want to use partials in your template, define them in a directory called `.partials` inside your template.
 
-Check out some examples in the [markdown](./markdown/.partials) template.
+Check out some examples in the [markdown](./templates/markdown/.partials) template.
 
 > The name of the partial will be obtained from the file name, converted to camel case. So, for instance, if the file name is `my-partial.js`, you can use the partial with `{{> myPartial}}`.
 
