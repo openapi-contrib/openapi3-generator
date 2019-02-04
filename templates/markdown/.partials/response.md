@@ -61,11 +61,11 @@ _No headers specified_
 {{/equal}}
 {{/equal}}
 {{else}}
-{{#if content.generatedExample}}
+{{#if content.schema.generatedExample}}
 ##### Example _(generated)_
 
 ```json
-{{{stringify content.generatedExample}}}
+{{{stringify content.schema.generatedExample}}}
 ```
 {{/if}}
 {{/if}}
