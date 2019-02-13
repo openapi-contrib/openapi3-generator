@@ -33,6 +33,7 @@ program
   .option('-o, --output <outputDir>', 'directory where to put the generated files (defaults to current directory)', parseOutput, process.cwd())
   .option('-t, --templates <templateDir>', 'directory where templates are located (defaults to internal nodejs templates)')
   .option('-b, --basedir <baseDir>', 'directory to use as the base when resolving local file references (defaults to OpenAPI file directory)')
+  .option('-c, --curl', 'generate a curl scripts', false)
   .parse(process.argv);
 
 if (!openapiFile) {
@@ -45,6 +46,7 @@ generator.generate({
   base_dir: program.basedir || baseDir || process.cwd(),
   target_dir: program.output,
   templates: program.templates ? path.resolve(process.cwd(), program.templates) : undefined,
+  curl: program.curl,
   template,
 }).then(() => {
   console.log(green('Done! ✨'));
