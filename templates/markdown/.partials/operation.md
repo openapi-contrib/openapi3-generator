@@ -8,6 +8,10 @@
 {{{operation.description}}}
 {{/if}}
 
+{{#if operation.curl}}
+{{> curl curl=operation.curl}}
+{{/if}}
+
 {{#if operation.pathParams}}
 {{> pathParams pathParams=operation.pathParams}}
 {{/if}}

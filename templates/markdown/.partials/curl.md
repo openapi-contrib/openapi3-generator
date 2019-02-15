@@ -1,0 +1,5 @@
+##### cURL Script (generated)
+
+```
+{{{curl}}}
+```
