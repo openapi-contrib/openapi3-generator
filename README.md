@@ -83,11 +83,11 @@ And some template files like this:
 ```
 |- index.js            // This file contains static code, e.g. starting a webserver and including ./api/index.js
 |+ api/
- |- index.js           // This is a static template, it contains placeholders that will be filled in, e.g. includes for each file in routes
+ |- index.js.hbs       // This is a static template, it contains placeholders that will be filled in, e.g. includes for each file in routes
  |+ routes/
-  |- $$path$$.route.js      // This file will be generated for each operation and contains skeleton code for each method for an operation.
+  |- $$path$$.route.js.hbs      // This file will be generated for each operation and contains skeleton code for each method for an operation.
 ```
-The first important thing to notice here is the variable notation in `$$path$$.route.js`. It will be replaced by the name of the path.
+The first important thing to notice here is the variable notation in `$$path$$.route.js.hbs`. It will be replaced by the name of the path.
 
 In this example the generated directory structure will be like this:
 ```
@@ -100,6 +100,15 @@ In this example the generated directory structure will be like this:
   |- user.route.js     // This file will contain the code for methods on users.
                        // (e.g. postUserLogin, getUserByUsername, putUserByUsername, deleteUserByUsername).
 ```
+
+### Template file extensions
+You can (optionally) name your template files with `.hbs` extensions, which will be removed when writing the generated
+file. e.g. `index.js.hbs` writes `index.js`. `index.js` would also write to `index.js`, if you prefer to omit the hbs
+extension.
+
+The only case where the `.hbs` extension isn't optional would be if you are writing handlebars templates with the
+templates. In that case the the template would need the extension `.hbs.hbs`. `usertpl.hbs.hbs` writes `usertpl.hbs`
+(but `usertpl.hbs` as a source would write `usertpl` with no extension).
 
 ### Template file content
 The generator passes the OpenAPI spec to template files, so all information should be available there.
