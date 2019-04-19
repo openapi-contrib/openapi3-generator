@@ -34,6 +34,7 @@ program
   .option('-t, --templates <templateDir>', 'directory where templates are located (defaults to internal nodejs templates)')
   .option('-b, --basedir <baseDir>', 'directory to use as the base when resolving local file references (defaults to OpenAPI file directory)')
   .option('-c, --curl', 'generate a curl scripts', false)
+  .option('-s, --skipExistingFiles', 'skip existing files')
   .parse(process.argv);
 
 if (!openapiFile) {
@@ -48,7 +49,7 @@ generator.generate({
   templates: program.templates ? path.resolve(process.cwd(), program.templates) : undefined,
   curl: program.curl,
   template,
-}).then(() => {
+  skipExistingFiles: program.skipExistingFiles 
   console.log(green('Done! ✨'));
   console.log(yellow('Check out your shiny new API at ') + magenta(program.output) + yellow('.'));
 }).catch(err => {
