@@ -49,7 +49,8 @@ generator.generate({
   templates: program.templates ? path.resolve(process.cwd(), program.templates) : undefined,
   curl: program.curl,
   template,
-  skipExistingFiles: program.skipExistingFiles 
+  skipExistingFiles: program.skipExistingFiles
+}).then(() => {
   console.log(green('Done! ✨'));
   console.log(yellow('Check out your shiny new API at ') + magenta(program.output) + yellow('.'));
 }).catch(err => {
