@@ -86,8 +86,13 @@ And some template files like this:
  |- index.js.hbs       // This is a static template, it contains placeholders that will be filled in, e.g. includes for each file in routes
  |+ routes/
   |- $$path$$.route.js.hbs      // This file will be generated for each operation and contains skeleton code for each method for an operation.
+  |+ $$path$$/                  // This folder will also be generated for each operation.
+    |- route.js.hbs             // This is another example of an operation file.
 ```
 The first important thing to notice here is the variable notation in `$$path$$.route.js.hbs`. It will be replaced by the name of the path.
+
+This example also shows `$$path$$` used in a folder name - the generated folder names here will replace $$path$$ with
+the name of the path (in kebab-case).
 
 In this example the generated directory structure will be like this:
 ```
@@ -98,7 +103,11 @@ In this example the generated directory structure will be like this:
   |- pet.route.js      // This file contains the code for methods on pets.
   |                    // (e.g. getPet, postPet, getPetByPetId).
   |- user.route.js     // This file will contain the code for methods on users.
-                       // (e.g. postUserLogin, getUserByUsername, putUserByUsername, deleteUserByUsername).
+  |                    // (e.g. postUserLogin, getUserByUsername, putUserByUsername, deleteUserByUsername).
+  |+ pet/
+   | - route.js        // this file also contains the code for methods on pets.
+  |+ user/
+   | - route.js        // this file also contains the code for methods on users.
 ```
 
 ### Template file extensions
