@@ -1,1 +1,5 @@
+# Unignore .dotfile t also lint .bootstrap.js files (see https://github.com/eslint/eslint/issues/9942)
+!.*
+/node_modules/.*
+
 gulpfile.js

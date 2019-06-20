@@ -1,8 +1,6 @@
-const
-  path = require('path')
-  fs = require('fs')
-  _ = require('lodash')
-;
+const path = require('path');
+const fs = require('fs');
+const _ = require('lodash');
 
 /**
  * Register every file *.hbs in {directory} as a handlebars partial
@@ -10,20 +8,19 @@ const
  * @param {string} directory
  */
 const registerPartial = directory => {
-
   if (!fs.existsSync(directory)) return {};
 
-  var filenames = fs.readdirSync(directory);
+  const filenames = fs.readdirSync(directory);
 
-  var partials = {};
-  filenames.forEach(function (filename) {
-    var matches = /^([^\.]+)(.*)?.hbs$/.exec(filename);
+  const partials = {};
+  filenames.forEach((filename) => {
+    const matches = (/^([^.]+)(.*)?.hbs$/).exec(filename);
     if (!matches) {
       return;
     }
     const name = _.camelCase(matches[1]);
 
-    var template = fs.readFileSync(path.join(directory, filename), 'utf8');
+    const template = fs.readFileSync(path.join(directory, filename), 'utf8');
 
     partials[name] = template;
   });
@@ -35,16 +32,16 @@ const registerPartial = directory => {
  * Array of handlebards helpers
  */
 const helpers = {
-  'acceptedValues': items => {
+  acceptedValues: items => {
     if (!items) return '<em>Any</em>';
 
     return items.map(i => `<code>${i}</code>`).join(', ');
   },
-  'buildPath': (propName, path, key) => {
+  buildPath: (propName, path) => {
     if (!path) return propName;
     return `${path}.${propName}`;
   },
-  'equal': (lvalue, rvalue, options) => {
+  equal: (lvalue, rvalue, options) => {
     if (arguments.length < 3)
       throw new Error('Handlebars Helper equal needs 2 parameters');
     if (lvalue !== rvalue) {
@@ -53,18 +50,18 @@ const helpers = {
 
     return options.fn(this);
   },
-  'isRequired': (obj, key) => {
+  isRequired: (obj, key) => {
     if (!obj || !obj.required) return false;
     return !!(obj.required.includes(key));
   },
-  'stringify': json => {
+  stringify: json => {
     try {
       return JSON.stringify(json || '', null, 2);
     } catch (e) {
       return '';
     }
   },
-  'tree': path => {
+  tree: path => {
     if (!path) return '';
     const filteredPaths = path.split('.').filter(Boolean);
     if (!filteredPaths.length) return;
@@ -72,10 +69,10 @@ const helpers = {
 
     return `${dottedPath}.`;
   },
-  'uppercase': (str) => {
+  uppercase: (str) => {
     return str.toUpperCase();
   },
-  'validMethod': (method, options) => {
+  validMethod: (method, options) => {
     const authorized_methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'COPY', 'HEAD', 'OPTIONS', 'LINK', 'UNLIK', 'PURGE', 'LOCK', 'UNLOCK', 'PROPFIND'];
 
     if (arguments.length < 3)
@@ -94,7 +91,7 @@ module.exports = {
     '.partials'
   ],
   options: {
-    helpers: helpers,
+    helpers,
     partials: registerPartial(path.join(__dirname, '.partials'))
   }
 };

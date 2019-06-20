@@ -8,7 +8,7 @@ const helpers = {
   /**
    * Compares two values.
    */
-  'equal': (lvalue, rvalue, options) => {
+  equal: (lvalue, rvalue, options) => {
     if (arguments.length < 3)
       throw new Error('Handlebars Helper equal needs 2 parameters');
     if (lvalue != rvalue) {
@@ -21,7 +21,7 @@ const helpers = {
   /**
    * Checks if a string ends with a provided value.
    */
-  'endsWith': (lvalue, rvalue, options) => {
+  endsWith: (lvalue, rvalue, options) => {
     if (arguments.length < 3)
       throw new Error('Handlebars Helper equal needs 2 parameters');
     if (lvalue.lastIndexOf(rvalue) !== lvalue.length - 1 || lvalue.length - 1 < 0) {
@@ -33,7 +33,7 @@ const helpers = {
   /**
    * Checks if a method is a valid HTTP method.
    */
-  'validMethod': (method, options) => {
+  validMethod: (method, options) => {
     const authorized_methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'COPY', 'HEAD', 'OPTIONS', 'LINK', 'UNLIK', 'PURGE', 'LOCK', 'UNLOCK', 'PROPFIND'];
 
     if (arguments.length < 3)
@@ -48,7 +48,7 @@ const helpers = {
   /**
    * Checks if a collection of responses contains no error responses.
    */
-  'ifNoErrorResponses': (responses, options) => {
+  ifNoErrorResponses: (responses, options) => {
     const codes = responses ? Object.keys(responses) : [];
     if (codes.find(code => Number(code) >= 400)) return options.inverse(this);
 
@@ -58,7 +58,7 @@ const helpers = {
   /**
    * Checks if a collection of responses contains no success responses.
    */
-  'ifNoSuccessResponses': (responses, options) => {
+  ifNoSuccessResponses: (responses, options) => {
     const codes = responses ? Object.keys(responses) : [];
     if (codes.find(code => Number(code) >= 200 && Number(code) < 300)) return options.inverse(this);
 
@@ -68,7 +68,7 @@ const helpers = {
   /**
    * Checks if a string matches a RegExp.
    */
-  'match': (lvalue, rvalue, options) => {
+  match: (lvalue, rvalue, options) => {
     if (arguments.length < 3)
       throw new Error('Handlebars Helper match needs 2 parameters');
     if (!lvalue.match(rvalue)) {
@@ -81,7 +81,7 @@ const helpers = {
   /**
    * Provides different ways to compare two values (i.e. equal, greater than, different, etc.)
    */
-  'compare': (lvalue, rvalue, options) => {
+  compare: (lvalue, rvalue, options) => {
     if (arguments.length < 3) throw new Error('Handlebars Helper "compare" needs 2 parameters');
 
     const operator = options.hash.operator || '==';
@@ -110,21 +110,21 @@ const helpers = {
   /**
    * Capitalizes a string.
    */
-  'capitalize': (str) => {
+  capitalize: (str) => {
     return _.capitalize(str);
   },
 
   /**
    * Converts a string to its camel-cased version.
    */
-  'camelCase': (str) => {
+  camelCase: (str) => {
     return _.camelCase(str);
   },
 
   /**
    * Converts a multi-line string to a single line.
    */
-  'inline': (str) => {
+  inline: (str) => {
     return str ? str.replace(/\n/g, '') : '';
   }
 };
@@ -132,6 +132,6 @@ const helpers = {
 module.exports = {
   jstransformer: 'handlebars',
   options: {
-    helpers: helpers
+    helpers
   }
 };
