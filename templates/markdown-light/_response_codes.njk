@@ -1,0 +1,7 @@
+{%- for responseStatusCode, response in op.responses %}{# RESPONSES LOOP START #}
+{%- if loop.first %}
+<p class="h4">Response codes</p>
+
+{% endif -%}
+`{{responseStatusCode}}`{% if not loop.last %}, {% endif %}
+{%- endfor %}{# RESPONSES LOOP END #}

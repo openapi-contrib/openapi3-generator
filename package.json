@@ -55,6 +55,7 @@
     "json-schema-ref-parser": "^4.0.4",
     "jstransformer": "^1.0.0",
     "jstransformer-handlebars": "^1.1.0",
+    "jstransformer-nunjucks": "^1.0.0",
     "lodash": "^4.17.11",
     "markdown-it": "^8.4.2",
     "oas-validator": "^1.1.7",

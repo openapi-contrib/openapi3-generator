@@ -1,0 +1,21 @@
+{%- set mediaType = 'application/json' -%}
+---
+title: {{ openapi.info.title }}
+---
+
+{%- if openapi.info.description %}
+
+{{openapi.info.description}}
+{%- endif %}
+
+# {{ openapi.info.title }}
+
+{%- for pathName, path in openapi.paths %}
+
+## {% if path.summary %}{{ path.summary }}{% else %}{{ pathName }}{% endif %}
+{%- if path.description %}
+
+{{ path.description }}
+{%- endif %}
+{%- include "_path.njk" %}
+{%- endfor -%}
