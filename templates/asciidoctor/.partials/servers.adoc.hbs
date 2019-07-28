@@ -1,0 +1,12 @@
+{{#if openapi.servers}}
+[[servers]]
+== {i18n-h-servers} 
+
+[cols="1,1", options="header"]
+|====
+|URL |{i18n-th-description}
+{{#each openapi.servers as |server|}}
+|{{server.url}} |{{server.description}}
+{{/each}}
+|====
+{{/if}}

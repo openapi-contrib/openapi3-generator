@@ -1,0 +1,13 @@
+{{#unless hideTitle}}
+[discrete]
+==== {i18n-h-responses} 
+{{/unless}}
+
+{{#each responses as |response responseCode|}}
+{{#if responseCode}}
+[discrete]
+===== {icon-triangle} {{responseCode}} {{#if response.description}}- {{{response.description}}}{{/if}}
+{{/if}}
+
+{{~> response response=response responseName=responseCode hideTitle=true ~}}
+{{/each}}

@@ -1,0 +1,10 @@
+{{#unless openapi.__noSchemas}}
+[[schemas]]
+//tag::schemas[]
+== {i18n-h-schemas} 
+
+{{#each openapi.components.schemas}}
+  {{~>schema schema=. schemaName=@key renderSlug=true~}}
+{{/each}}
+//end::schemas[]
+{{/unless}}

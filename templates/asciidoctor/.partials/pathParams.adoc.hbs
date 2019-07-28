@@ -1,0 +1,16 @@
+[discrete]
+==== Path parameters
+
+{{#each pathParams as |pathParam|}}
+{{#if pathParam.name}}
+[discrete]
+===== {icon-triangle} {{pathParam.name}}
+{{/if}}
+
+{{#if pathParam.description}}
+{{{pathParam.description}}}
+{{/if}}
+
+{{> parameter param=pathParam paramName=pathParam.name hideTitle=true}}
+
+{{/each}}

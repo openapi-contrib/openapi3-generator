@@ -1,0 +1,31 @@
+{{#if example}}
+[discrete]
+===== {i18n-h-example}
+
+{{#if summary}}> {{{summary}}}{{/if}}
+
+{{#if description}}{{{description}}}{{/if}}
+
+[source, json]
+----
+{{{stringify example}}}
+----
+{{else}}
+{{#if generatedExample}}
+[discrete]
+===== {i18n-h-example} _({i18n-a-generated})_
+
+[source, json]
+----
+{{{stringify generatedExample}}}
+----
+{{/if}}
+{{/if}}
+
+{{#if externalValue}}
+{{#unless example}}
+[discrete]
+===== {i18n-h-example}
+{{/unless}}
+[Download example]({{externalValue}})
+{{/if}}

@@ -1,0 +1,90 @@
+{{#unless hideTitle}}
+[discrete]
+==== {{responseName}}
+{{/unless}}
+[discrete]
+====== {i18n-h-headers}
+{{#each response.headers as |header headerName|}}
+===== {{headerName}}
+{{> schema schema=header.schema schemaName=headerName hideTitle=true hideExamples=true}}
+
+{{#if header.schema.example}}
+{{#equal contentType 'application/json'}}
+[source, json]
+----
+{{{stringify header.schema.example}}}
+----
+{{else}}
+{{#equal contentType 'application/xml'}}
+[source,xml]
+----
+{{{header.schema.example}}}
+----
+{{else}}
+[source]
+----
+{{{header.schema.example}}}
+----
+{{/equal}}
+{{/equal}}
+{{else}}
+{{#if header.generatedExample}}
+[source, json]
+----
+{{{stringify header.generatedExample}}}
+----
+{{/if}}
+{{/if}}
+
+{{else}}
+_{i18n-p-no-headers-specified}_
+{{/each}}
+
+{{#if response.content}}
+{{#each response.content as |content contentType|}}
+[discrete]
+====== {{contentType}}
+{{#if content.description}}
+{{{content.description}}}
+{{/if}}
+{{> schema schema=content.schema schemaName='Response' hideTitle=true hideExamples=true}}
+
+{{#if content.examples}}
+{{#each content.examples as |example exampleName|}}
+{{> example example=example.value description=example.description externalValue=example.externalValue}}
+{{/each}}
+{{/if}}
+{{#if content.schema.example}}
+[discrete]
+===== {i18n-h-example}
+{{#equal contentType 'application/json'}}
+[source, json]
+----
+{{{stringify content.schema.example}}}
+----
+{{else}}
+{{#equal contentType 'application/xml'}}
+[source, xml]
+----
+{{{content.schema.example}}}
+----
+{{else}}
+[source]
+----
+{{{content.schema.example}}}
+----
+{{/equal}}
+{{/equal}}
+{{else}}
+{{#if content.schema.generatedExample}}
+[discrete]
+===== {i18n-h-example} _({i18n-a-generated})_
+
+[source, json]
+----
+{{{stringify content.schema.generatedExample}}}
+----
+{{/if}}
+{{/if}}
+{{/each}}
+{{/if}}
