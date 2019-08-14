@@ -1,0 +1,6 @@
+[[paths]]
+== {i18n-h-paths} 
+
+{{#each openapi.paths}}
+{{>path path=. pathName=@key}}
+{{/each}}

@@ -1,0 +1,14 @@
+{{#each path}}
+{{#validMethod @key}}
+[[{{../slug}}]]
+{{#if ../deprecated}}
+=== _(DEPRECATED)_ *{{uppercase @key}}* {{../../pathName}}
+{{else}}
+=== *{{uppercase @key}}* {{../../pathName}}
+{{/if}}
+//tag::{{../slug}}[]
+{{> operation operation=.. operationName=(uppercase @key)}}
+
+//end::{{../slug}}[]
+{{/validMethod}}
+{{/each}}

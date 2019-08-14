@@ -1,0 +1,12 @@
+{{#if openapi.components.securitySchemes}}
+[[security]]
+== Security
+
+[cols="1, 1, 1, 1, 1, 1", options="header"]
+|====
+|Type |In |Name |Schema |Format |Description
+{{#each openapi.components.securitySchemes as |security|}}
+|{{security.type}} |{{security.in}} |{{security.name}} |{{security.scheme}} |{{security.bearerFormat}} |+++{{{security.descriptionAsHTML}}}+++
+{{/each}}
+|====
+{{/if}}

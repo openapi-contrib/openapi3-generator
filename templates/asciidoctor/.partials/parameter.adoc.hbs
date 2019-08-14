@@ -1,0 +1,26 @@
+{{#unless hideTitle}}
+[discrete]
+==== {{parameterName}}
+{{/unless}}
+
+[cols="^1,^1,^1,^1,^1", options="header"]
+|====
+|{i18n-th-name} |{i18n-th-type} |{i18n-th-in} |{i18n-th-description} |{i18n-th-accepted-values}
+{{#each param.schema.properties}}
+{{> paramProp prop=. propName=@key required=(isRequired ../schema @key) path=''}}
+{{else}}
+{{> paramProp prop=param propName=paramName required=(isRequired ../schema @key) path=''}}
+{{/each}}
+|====
+
+{{#unless hideExamples}}
+{{#if schema.example}}
+[discrete]
+===== Example
+
+[source, json]
+----
+{{{stringify param.schema.example}}}
+----
+{{/if}}
+{{/unless}}

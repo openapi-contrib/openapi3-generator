@@ -1,0 +1,16 @@
+[discrete]
+==== Query parameters
+
+{{#each queryParams as |queryParam|}}
+{{#if queryParam.name}}
+[discrete]
+===== {icon-triangle} {{queryParam.name}}
+{{/if}}
+
+{{#if queryParam.description}}
+{{{queryParam.description}}}
+{{/if}}
+
+{{> parameter param=queryParam paramName=queryParam.name hideTitle=true}}
+
+{{/each}}

@@ -1,0 +1,56 @@
+= {{openapi.info.title}}
+// ------------------------------------------------------------
+// To translate this document just make another asciidoc file 
+// with required i18n attribute values and include this one
+//
+// include::openapi.adoc[]
+//
+// or make another file with necessary title and i18n attribute
+// values and include only tag "body"
+// 
+// include::openapi.adoc[tag=body]
+// 
+// This approach lets you define your own attributes,
+// for example ":toc: left" to generate table of contents.
+//  
+// Each paths and schemas section is anchored and marked 
+// with corresponding tag to make possible separate use in your 
+// document. Schemas are tagged and anchored only if they've 
+// got a title.
+// ------------------------------------------------------------
+ifndef::api-lang[]
+:api-lang: en-en
+:i18n-h-servers: Servers
+:i18n-h-paths: Paths
+:i18n-h-security: Security
+:i18n-h-schemas: Schemas 
+:i18n-th-description: Description 
+:i18n-th-in: In
+:i18n-th-name: Name
+:i18n-th-type: Type
+:i18n-th-accepted-values: Accepted values
+:i18n-h-responses: Responses
+:i18n-h-headers: Headers
+:i18n-p-no-headers-specified: No header specified
+:i18n-h-request-body: Request body
+:i18n-h-example: Example
+:i18n-a-generated: Generated
+:i18n-a-required: Required
+:i18n-h-api-description: API description 
+:icon-triangle: &#9655;
+endif::[]
+
+//tag::body[]
+
++++{{{openapi.info.descriptionAsHTML}}} +++
+
+{{> info}}
+
+{{> servers}}
+
+{{> security}}
+
+{{> paths }}
+
+{{> schemas }}
+//end::body[]

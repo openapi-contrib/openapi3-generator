@@ -1,0 +1,16 @@
+[discrete]
+==== {i18n-h-headers}
+
+{{#each headers as |header|}}
+{{#if header.name}}
+[discrete]
+===== {icon-triangle} {{header.name}}
+{{/if}}
+
+{{#if header.description}}
+{{{header.description}}}
+{{/if}}
+
+{{> parameter param=header paramName=header.name hideTitle=true}}
+
+{{/each}}
