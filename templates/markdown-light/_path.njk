@@ -1,0 +1,20 @@
+{%- for opName, op in path -%}{# OPERATIONS LOOP START #}
+{%- if opName in ['get', 'put', 'post', 'delete', 'options', 'head', 'patch', 'trace'] %}{# OPERATIONS FILTER COND START #}
+
+### {% if op.summary %}{{ op.summary }}{% else %}{{ opName|upper}} {{ pathName }}{% endif %}
+
+```
+{{ opName|upper}} {{ pathName }}
+```
+{%- if op.description %}
+{{ op.description }}
+{%- endif %}
+
+{% include "_request_headers.njk" %}
+{%- include "_query_parameters.njk" %}
+{%- include "_request_body.njk" %}
+{%- include "_response_body.njk" %}
+{%- include "_response_codes.njk" %}
+----
+{%- endif %}{# OPERATIONS FILTER COND END #}
+{%- endfor -%}{# OPERATIONS LOOP END #}

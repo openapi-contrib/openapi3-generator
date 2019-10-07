@@ -1,0 +1,42 @@
+{%- macro parameters(params, showRequirements = false) %}
+{%- for paramName, parameter in params %}
+* `{{ paramName }}` (*{{parameter.type}}*{% if not requiredOnly %}|{% if parameter.required %}**required**{% else %}**optional**{% if parameter.default %}|default:`{{parameter.default}}`{% endif %}{% endif %}{% endif %}){% if parameter.description %}: {{parameter.description}}{% endif %}
+{%- if parameter.type == "array" and parameter.items.properties %}
+  * {{ parameter.items.type }}:
+{{- parameters(parameter.items.properties, showRequirements)|indent(4) -}}
+{%- elif parameter.type == "object" and parameter.properties %}
+{{- parameters(parameter.properties, showRequirements)|indent(2) -}}
+{%- endif %}
+{%- if parameter.example %}{# EXAMPLES COND START #}
+  ```
+  {{ parameter.example|dump|safe }}
+  ```
+{%- endif %}{# EXAMPLES COND END #}
+{%- else %}
+*empty*
+{%- endfor %}
+{%- endmacro -%}
+
+{%- for responseStatusCode, response in op.responses %}{# RESPONSES LOOP START #}
+
+{%- if responseStatusCode >= 200 and responseStatusCode < 400 %}{# STATUS CODE  COND START #}
+
+{%- for headerName, header in response.headers %}
+{%- if loop.first %}
+<p class="h4">{{ responseStatusCode }} Response headers</p>
+{% endif %}
+* {{ headerName }}: {{ header.description }}
+{% endfor %}
+<p class="h4">{{ responseStatusCode }} Response body</p>
+{%- if response.description %}
+
+{{ response.description }}
+{%- endif %}
+
+{%- if response.content[mediaType] %}
+{%- set content = response.content[mediaType] %}
+{%- include "_content.njk" %}
+{%- endif %}
+
+{%- endif %}{# STATUS CODE  COND START #}
+{%- endfor -%}{# RESPONSES LOOP END #}

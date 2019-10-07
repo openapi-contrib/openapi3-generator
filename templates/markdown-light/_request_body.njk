@@ -1,0 +1,14 @@
+
+{% if path.requestBody %}{# REQUEST BODY COND START #}
+<p class="h4">Request body ({% if path.requestBody.required %}**required**{% else %}**optional**{% endif %})</p>
+{%- if path.requestBody.description %}
+
+{{ path.requestBody.description }}
+{%- endif %}
+
+{%- if path.requestBody.content[mediaType] %}
+{%- set content = path.requestBody.content[mediaType] %}
+{%- include "_content.njk" %}
+{%- endif %}
+
+{% endif %}{# REQUEST BODY COND END #}

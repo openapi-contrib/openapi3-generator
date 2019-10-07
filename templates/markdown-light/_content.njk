@@ -1,0 +1,50 @@
+
+{%- if content[mediaType].schema and content[mediaType].schema.type == 'object' %}{# SCHEMA COND START #}
+
+A JSON object containing the following keys:
+{{- parameters(content[mediaType].schema.properties) -}}
+{%- endif %}{# SCHEMA COND END #}
+
+{%- if content[mediaType].example == '' %}{# EXAMPLE COND START #}
+
+*empty response*
+{%- elif content[mediaType].example %}{# EXAMPLE COND ELIF #}
+
+**Example:**
+```json
+{{ content[mediaType].example|dump|safe }}
+```
+{%- elif content[mediaType].examples %}{# EXAMPLE COND ELIF #}
+{%- for exampleName, example in content[mediaType].examples %}{# EXAMPLES LOOP START #}
+
+{%- if example.summary %}
+**{{ example.summary }}:**
+{%- else %}
+
+**Example:**
+{% endif %}
+{%- if example.description %}
+> {{example.description}}
+{% endif %}
+{%- if example.value == '' %}
+
+*empty response*
+{%- elif example.value %}
+```json
+{{ example.value|dump|safe }}
+```
+{%- elif example.externalValue %}
+
+**Example:** {{ example.externalValue }}
+{% endif %}
+{%- endfor %}{# EXAMPLES LOOP END #}
+{%- elif content[mediaType].schema.example == '' %}{# EXAMPLE COND ELIF #}
+
+*empty response*
+{%- elif content[mediaType].schema.example %}{# EXAMPLE COND ELIF #}
+
+**Example:**
+```json
+{{ content[mediaType].schema.example|dump|safe }}
+```
+{%- endif %}{# EXAMPLE COND END #}
