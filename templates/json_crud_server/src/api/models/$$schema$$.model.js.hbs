@@ -1,0 +1,55 @@
+const {{camelCase this.schema_name}}Check = require('../constrains/{{camelCase this.schema_name}}.constrain.js');
+const errorModel = require('../helpers/errorResponse');
+const helper = require('../helpers/helper.js');
+
+class {{schema_name}}Model {
+      constructor(
+        {{#each schema_properties}}
+        {{this.name}}{{#unless @last}},{{/unless}}
+        {{/each}}
+    ) {
+      {{#each schema_properties}}
+      this.{{this.name}}= {{this.name}};
+       {{/each}}
+      }
+}
+function adaptModel(content, list, newInfo) {
+ let entity;
+ try{
+  entity= new {{schema_name}}Model(
+  {{#each schema_properties}}
+  content.{{this.name}}{{#unless @last}},{{/unless}}
+  {{/each}}
+  );
+  if(!newInfo){
+    const index =   list.findIndex(p => p.id == content.id);
+    {{#each schema_properties}}
+    if (entity.{{this.name}} == undefined){
+       entity.{{this.name}} = list[index].{{this.name}};
+    }
+    {{/each}}
+  }
+  if(checkRequiredConstraints{{schema_name}}(entity) && {{camelCase this.schema_name}}Check.checkDublicateConstraints{{schema_name}}(entity, list) && {{camelCase this.schema_name}}Check.checkOtherConstraints{{schema_name}}(entity)){
+      return entity;
+  }
+   }catch (e) {
+     throw e;
+   }
+}
+function checkRequiredConstraints{{schema_name}}(entity){
+      {{#each schema_properties_required}}
+      if(entity.{{this}} == undefined){
+      throw new errorModel.ErrorResponse(15, `{{../schema_name}} required attribute '{{this}}'.`, "test", 400, `{{../schema_name}} required attribute '{{this}}'.`);
+      }
+      {{/each}}
+        return true;
+      }
+  {{schema_name}}Model.prototype.toString = function {{schema_name}}ModelToString() {
+          return '{' + {{#each schema_properties}}
+                      this.{{this.name}}{{#unless @last}} + " | " + {{/unless}}{{/each}} + '}'
+  }
+module.exports = {
+  {{schema_name}}Model,
+  adaptModel,
+  checkRequiredConstraints{{schema_name}}
+};

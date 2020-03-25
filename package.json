@@ -42,6 +42,10 @@
     {
       "name": "Richard Klose",
       "email": "richard.klose@gmail.com"
+    },
+    {
+      "name": "Matthias Suessmeier",
+      "email": "suessmma94@gmail.com"
     }
   ],
   "homepage": "https://github.com/fmvilas/openapi3-generator",

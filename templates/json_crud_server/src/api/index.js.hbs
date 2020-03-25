@@ -1,0 +1,46 @@
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const config = require('../lib/config');
+const logger = require('../lib/logger');
+
+const log = logger(config.logger);
+const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+/*
+ * Routes
+ */
+{{#each @root.openapi.endpoints}}
+{{#endsWith @root.openapi.basePath '/'}}
+app.use('{{@root.openapi.basePath}}{{..}}', require('./routes/{{..}}.route.js'));
+{{else}}
+app.use('{{@root.openapi.basePath}}/{{..}}', require('./routes/{{..}}.route.js'));
+{{/endsWith}}
+{{/each}}
+
+// catch 404
+app.use((req, res, next) => {
+   log.error(`Error 404 on ${req.url}.`);
+   res.status(404).send({
+      errorCode: 15,
+      title: `URL ${req.url} not found.`,
+      instance: "test",
+      status: 404,
+      detail: `URL ${req.url} not found.`
+   });
+});
+
+// catch errors
+app.use((err, req, res, next) => {
+   const status = err.status || 500;
+   log.error(`Error ${status} (${err.toString()}) on ${req.method} ${req.url} with payload ${req.body}.`);
+   res.set('Content-Type', 'application/json');
+   res.status(status).send(err);
+});
+
+
+    module.exports = app;

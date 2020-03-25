@@ -1,0 +1,161 @@
+let {{camelCase operation_name}} = require('../data/{{camelCase operation_name}}.data.json');
+const {{camelCase operation_name}}Filename = './src/api/data/{{camelCase operation_name}}.data.json';
+{{#each operation}}
+{{#NotUndefined this.path.additionalData}}
+let  {{camelCase ../path.additionalData}} =  require('../data/{{camelCase  ../path.additionalData}}.data.json');
+const {{camelCase../path.additionalData}}Filename = './src/api/data/{{camelCase  ../path.additionalData}}.data.json';
+{{/NotUndefined}}
+{{/each}}
+const {{camelCase operation_name}}Model = require('../models/{{camelCase operation_name}}.model.js');
+{{#each operation}}
+{{#NotUndefined this.path.additionalData}}
+const {{camelCase../path.additionalData}}Model = require('../models/{{camelCase ../path.additionalData}}.model.js');
+{{/NotUndefined}}
+{{/each}}
+const errorModel = require('../helpers/errorResponse');
+const helper = require('../helpers/helper.js');
+{{#each operation}}
+  {{#each this.path}}
+    {{#validMethod @key}}
+/**
+ * @param {Object} options
+{{#each ../parameters}}
+{{#if this.name}}
+ * @param {{../../../../openbrace}}{{capitalize type}}{{../../../../closebrace}} options.{{name}} {{inline description}}
+{{/if}}
+{{/each}}
+ * @throws {Error}
+ * @return {Promise}
+ */
+module.exports.{{../operationId}} = async (options) => {
+  {{#compare @key "get"}}
+  {{#endsWithLowerCase ../operationId ../idparameter}}
+  return new Promise((resolve, reject) => {
+    {{#each ../parameters}}
+      {{#equal this.in "path"}}
+    const {{{quote ../name}}}= options.{{../name}};
+    {{/equal}}
+    {{/each}}
+    helper.mustBeInArray(  {{camelCase ../../../operation_name}}, {{../idparameter}})
+      .then(x => {
+        resolve(x)
+      })
+     .catch(err => reject(err))
+  });
+    {{else}}
+    {{#NotUndefined ../additionalData}}
+      return new Promise((resolve, reject) => {
+        {{#each ../parameters}}
+        {{#equal this.in "path"}}
+        const {{{quote ../name}}}= options.{{../name}};
+        {{/equal}}
+        {{/each}}
+        helper.mustBeInArray(  {{camelCase ../../../operation_name}}, {{../idparameter}})
+        .then(x => {
+            const {{camelCase ../additionalData}}Filtered = {{camelCase ../additionalData}}.filter(x => x.{{../idparameter}} == {{../idparameter}});
+            if ({{camelCase ../additionalData}}Filtered.length === 0) {
+              resolve([]);
+            }
+            resolve({{camelCase ../additionalData}}Filtered);
+            })
+          .catch(err => reject(err))
+        });
+      {{else}}
+        return new Promise((resolve, reject) => {
+      if ({{camelCase ../../../operation_name}}.length === 0) {
+        resolve([]);
+      }
+      resolve({{camelCase ../../../operation_name}})
+      });
+      {{/NotUndefined}}
+            {{/endsWithLowerCase}}
+  {{else}}
+    {{#compare @key "post"}}
+    {{#NotUndefined ../additionalData}}
+    return new Promise((resolve, reject) => {
+      {{#each ../parameters}}
+      {{#equal this.in "path"}}
+      const {{{quote ../name}}}= options.{{../name}};
+      {{/equal}}
+      {{/each}}
+      helper.mustBeInArray(  {{camelCase ../../../operation_name}}, {{../idparameter}})
+      .then(x => {
+          let  tempEntity = options.body;
+          helper.isArray(tempEntity);
+          const id = helper.getNewId({{camelCase ../additionalData}});
+          tempEntity.id = id;
+          tempEntity.{{../idparameter}} = {{../idparameter}}
+          const  {{camelCase ../additionalData}}New=  {{camelCase ../additionalData}}Model.adaptModel(tempEntity,{{camelCase ../additionalData}}, true );
+          {{camelCase ../additionalData}}.push({{camelCase ../additionalData}}New);
+          helper.writeJSONFile({{camelCase ../additionalData}}Filename, {{camelCase ../additionalData}});
+          resolve({{camelCase ../additionalData}}New);
+          })
+          .catch(err => reject(err))
+       });
+
+    {{else}}
+    return new Promise((resolve, reject) => {
+    let  tempEntity = options.body;
+    const id = helper.getNewId({{camelCase ../../../operation_name}});
+    tempEntity.id = id;
+    const {{camelCase ../../../operation_name}}New =  {{camelCase ../../../operation_name}}Model.adaptModel(tempEntity,{{camelCase ../../../operation_name}}, true );
+    {{camelCase ../../../operation_name}}.push({{camelCase ../../../operation_name}}New);
+    helper.writeJSONFile({{camelCase ../../../operation_name}}Filename, {{camelCase ../../../operation_name}});
+    resolve({{camelCase ../../../operation_name}}New)
+    });
+        {{/NotUndefined}}
+    {{else}}
+    {{#compare @key "put"}}
+    {{#endsWithLowerCase ../operationId ../idparameter}}
+    return new Promise((resolve, reject) => {
+      let  tempEntityUpdate = options.body;
+      let {{camelCase ../../../operation_name}}Updated = options.body;
+      {{#each ../parameters}}
+      {{#equal this.in "path"}}
+      const {{{quote ../name}}}= options.{{../name}};
+      {{/equal}}
+      {{/each}}
+      helper.mustBeInArray(  {{camelCase ../../../operation_name}}, {{../idparameter}})
+        .then(x => {
+          const index =   {{camelCase ../../../operation_name}}.findIndex(p => p.id == {{../idparameter}});
+          tempEntityUpdate.id = x.id
+          const {{camelCase ../../../operation_name}}Updated =  {{camelCase ../../../operation_name}}Model.adaptModel( tempEntityUpdate,{{camelCase ../../../operation_name}}, false );
+          {{camelCase ../../../operation_name}}[index] = {...{{camelCase ../../../operation_name}}Updated};
+          helper.writeJSONFile({{camelCase ../../../operation_name}}Filename, {{camelCase ../../../operation_name}});
+          resolve({{camelCase ../../../operation_name}}[index])
+        })
+        .catch(err => reject(err))
+    });
+        {{else}}
+         //to implement
+        {{/endsWithLowerCase}}
+        {{else}}
+        {{#compare @key "delete"}}
+        {{#endsWithLowerCase ../operationId ../idparameter}}
+    return new Promise((resolve, reject) => {
+             {{#each ../parameters}}
+             {{#equal this.in "path"}}
+      const {{{quote ../name}}}= options.{{../name}};
+             {{/equal}}
+             {{/each}}
+      helper.mustBeInArray(  {{camelCase ../../../operation_name}}, {{../idparameter}})
+       .then(x => {
+         {{camelCase ../../../operation_name}} = {{camelCase ../../../operation_name}}.filter(f => f.id != {{../idparameter}})
+         helper.writeJSONFile({{camelCase ../../../operation_name}}Filename, {{camelCase ../../../operation_name}});
+         resolve({status: 204})
+       })
+        .catch(err => reject(err))
+    });
+           {{else}}
+            //to implement
+           {{/endsWithLowerCase}}
+             {{else}}
+              //to implement
+             {{/compare}}            {{/compare}}
+      {{/compare}}
+  {{/compare}}
+};
+
+    {{/validMethod}}
+  {{/each}}
+{{/each}}
