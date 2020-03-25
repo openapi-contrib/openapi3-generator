@@ -1,0 +1,5 @@
+[{
+{{#each schema_properties}}
+  {{{transformToJsonData this}}}{{#unless @last}},{{/unless}}
+  {{/each}}
+}]

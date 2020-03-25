@@ -25,16 +25,19 @@ npm install -g openapi3-generator
 
   Options:
 
-    -V, --version                  output the version number
-    -o, --output <outputDir>       directory where to put the generated files (defaults to current directory)
-    -t, --templates <templateDir>  directory where templates are located (defaults to internal templates directory)
-    -b, --basedir <baseDir>        directory to use as the base when resolving local file references (defaults to OpenAPI file directory)
-    -h, --help                     output usage information
+    -V, --version                  		output the version number
+    -o, --output <outputDir>       		directory where to put the generated files (defaults to current directory)
+    -t, --templates <templateDir>  		directory where templates are located (defaults to internal templates directory)
+    -b, --basedir <baseDir>        		directory to use as the base when resolving local file references (defaults to OpenAPI file directory)
+    -c, --curl        		        	generate a curl scripts (defaults is false)
+    -s, --skipExistingFiles        		skip existing files
+    -d, --deleteFolders <folderName>    directory names to be deleted, e.g. "auto", "*"
+    -h, --help                     		output usage information
 ```
 
 #### Examples
 
-The shortest possible syntax:
+The shortest possible syntax to create markdowns for the openapi.yaml file:
 ```bash
 og openapi.yaml markdown
 ```
@@ -42,6 +45,21 @@ og openapi.yaml markdown
 Specify where to put the generated code:
 ```bash
 og -o ./my-docs openapi.yaml markdown
+```
+
+The syntax to create an express server with only the endpoints for the openapi.yaml file:
+```bash
+og -o ./express-server openapi.yaml express
+```
+
+The syntax to create an full functionaly CRUD-Server, which reads and writes from json-files for the openapi.yaml file:
+```bash
+og -o ./demo-crud-server openapi.yaml json_crud_server
+```
+
+The syntax to create an full functionaly CRUD-Server with own templates and deletion of the existing demo-server :
+```bash
+og -d * -o ./demo-server -t ./ openapi.yaml demo-server-templates
 ```
 
 ## Templates
@@ -55,6 +73,7 @@ The files in your template can be of the following types:
 2. Templates: This kind of files will be compiled using [Handlebars](http://handlebarsjs.com/), and copied to the output directory.
 3. Path templates: This kind of files will be compiled using [Handlebars](http://handlebarsjs.com/), but it will generate one file per OpenAPI path.
 
+#### Example 1 - Express server
 Assuming we have the following OpenAPI Spec:
 ```yaml
 openapi: "3.0.0"
@@ -109,6 +128,107 @@ In this example the generated directory structure will be like this:
   |+ user/
    | - route.js        // this file also contains the code for methods on users.
 ```
+#### Example 2 - Json CRUD server
+Assuming we have the following OpenAPI Spec:
+```yaml
+openapi: 3.0.0
+info:
+  title: CRUD Service
+  version: 1.0.0
+  description: CRUD Service Example.
+servers:
+  - url: http://localhost:8080/crud-service/rest/v1
+...
+paths:
+ ...
+  /variants:    
+    get:...
+    post:...
+  /variants/{variantId}:  
+    parameters:
+      - name: variantId ...
+    get:...
+    delete:...
+    put:...
+  /variants/{variantId}/phases:
+    parameters:
+      - name: variantId ...
+    get:...
+    post:...
+  ...
+components:
+ ...
+  schemas:
+  ....
+    Variant:
+      description: The variant as it is used in the CRUD service.
+      type: object
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+          description: The variant's internal ID.
+          example: 123456
+        name:
+          type: "string"
+          description: The variant's name.
+          example: "Variant"
+        creationInfo:
+          $ref: "#/components/schemas/CreationInfo"
+        modificationInfo:
+          $ref: "#/components/schemas/ModificationInfo"
+        objectVersionInfo:
+          $ref: "#/components/schemas/ObjectVersionInfo"
+      required:
+        - name 
+    ....
+```
+And some template files like this:
+```
+|+ api/
+ |- index.js.hbs       		    // This is a static template, it contains placeholders that will be filled in, e.g. includes for each file in routes.
+ |+ constrains/
+  |- $$schema$$.constrain.js.hbs    // This file will be generated for each schema and contains standard functions to check constrains, each could be change.
+ |+ data/
+  |- $$schema$$.data.json.hbs       // This json file will be generated for each schema and will be filled with the example values of the schemas.
+ |+ helpers/
+  |- errorResponse.js      	    // This file will be static and contains the errorModel.
+  |- helper.js                      // This file will be static and contains the helper methods for the crud functionality to read, write and search in json files.
+ |+ models/
+  |- $$schema$$.model.js.hbs        // This file will be generated for each schema and includes the model for the schema and the mandatory field checks.
+ |+ routes/
+  |- $$path$$.route.js.hbs          // This file will be generated for each operation and contains skeleton code for each method for an operation.
+ |+ services/
+  |- $$path$$.service.js.hbs        // This file will be generated for each operation and contains the crud functionality code for each method for an operation.
+
+```
+The first important thing to notice here is the variable notation in `$$path$$.route.js.hbs`. It will be replaced by the name of the path.
+The second important thing to notice here is the variable notation in `$$schema$$.model.js.hbs`. It will be replaced by the name of the schema.
+
+
+In this example the generated directory structure will be like this:
+```
+|+ api/
+ |- index.js     		    // This file will now e.g. have included the files in routes.
+ |+ constrains/
+  |- variants.constrain.js          // This file will be used to check additionaly constrains. It can be replaced by a static file with the same name.
+	...
+ |+ data/
+  |- variants.data.json   	    // This json filecontains the example values for the Schama Variant and is used to store new variants and changes.
+	...
+|+ helpers/
+  |- errorResponse.js      	    // This file contains the errorModel.
+  |- helper.js      		    // This file contains the helper methods for the crud functionality to read, write and search in json files.
+ |+ models/
+  |- variants.model.js    	    // This file contains the model for the schema Variants and the mandatory field checks to create or update a variant.
+	...
+ |+ routes/
+  |- variants.route.js              // This file contains the code for methods on variants.
+	...
+ |+ services/
+  |- variants.service.js            // This file contains the code for methods on variants to read  write the data from variants.datajson.
+	...
+```
 
 ### Template file extensions
 You can (optionally) name your template files with `.hbs` extensions, which will be removed when writing the generated
@@ -158,3 +278,4 @@ Check out some examples in the [markdown](./templates/markdown/.partials) templa
 
 * Fran Méndez ([@fmvilas](http://twitter.com/fmvilas))
 * Richard Klose ([@richardklose](http://github.com/richardklose))
+* Matthias Suessmeier ([@suessmma](https://github.com/suessmma))

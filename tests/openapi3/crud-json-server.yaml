@@ -1,0 +1,1358 @@
+openapi: 3.0.0
+info:
+  title: CRUD Service
+  version: 1.0.0
+  description: CRUD Service Example.
+  
+servers:
+  - url: http://localhost:8080/crud-service/rest/v1
+    description: Local development server.
+  
+security:
+  - oidc: []
+
+paths:
+  /configurations:
+    summary: Endpoint for handling the configuration.
+    description: Endpoint for execution operations on CRUD configuration.
+    
+    get:
+      tags:
+      - "configuration"
+      summary: Lists all configuration.
+      description: Returns all configuration available in the database.
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Configuration"
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'  
+        "403":
+          $ref: '#/components/responses/ForbiddenError'   
+        "404":
+          $ref: '#/components/responses/NotFoundError'     
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError'   
+        "500":
+          $ref: '#/components/responses/InternalServerError'   
+        default:
+          $ref: '#/components/responses/ApplicationError'  
+          
+    post:
+      tags:
+      - "configuration"
+      summary: Add a configuration.
+      description: Add a new configuration to the database.
+      requestBody:
+        description: The configuration to be created.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Configuration"
+      responses:
+        "200":
+          description: "configuration was created successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Configuration"
+        "400":
+          $ref: '#/components/responses/BadRequestError'   
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "412":
+          $ref: '#/components/responses/PreconditionFailedError'  
+        "500":
+          $ref: '#/components/responses/InternalServerError'           
+        default:
+          $ref: '#/components/responses/ApplicationError'             
+  
+  /configurations/{configurationId}:
+    summary: Endpoint for handling configurations specified by their IDs.
+    description: Endpoint for handling configurations specified by their IDs.
+    parameters:
+      - name: configurationId
+        in: path
+        description: "ID of configuration"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"
+  
+    get:
+      tags:
+      - "configuration"
+      summary: Read a configuration.
+      description: Read a single configuration by its ID.
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/Configuration"
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "404":
+          $ref: '#/components/responses/NotFoundError'   
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "500":
+          $ref: '#/components/responses/InternalServerError'            
+        default:
+          $ref: '#/components/responses/ApplicationError'  
+          
+    delete:
+      tags:
+      - "configuration"
+      summary: Delete a configuration.
+      description: Removes a configuration from the database.
+      responses:
+        "204":
+          description: "no content"
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "404":
+          $ref: '#/components/responses/NotFoundError'   
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "500":
+          $ref: '#/components/responses/InternalServerError'           
+        default:
+          $ref: '#/components/responses/ApplicationError'
+          
+    put:
+      tags:
+      - "configuration"
+      summary: Update a configuration.
+      description: Updates an existing configuration in the database.
+      requestBody:
+        description: The configuration's properties to be updated.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Configuration"
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Configuration"
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "404":
+          $ref: '#/components/responses/NotFoundError'   
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "409":
+          $ref: '#/components/responses/ConflictError'   
+        "412":
+          $ref: '#/components/responses/PreconditionFailedError'    
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/ApplicationError'    
+
+  /states:
+    summary: Endpoint for handling the State.
+    description: Endpoint for execution operations on CRUD State.
+    
+    get:
+      tags:
+      - "state"
+      summary: Lists all States.
+      description: Returns all State available in the database.
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/State"
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'  
+        "403":
+          $ref: '#/components/responses/ForbiddenError'   
+        "404":
+          $ref: '#/components/responses/NotFoundError'     
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError'   
+        "500":
+          $ref: '#/components/responses/InternalServerError'   
+        default:
+          $ref: '#/components/responses/ApplicationError'  
+
+    post:
+      tags:
+      - "state"
+      summary: Add State.
+      description: Add a new State to the database.
+      requestBody:
+        description: The State to be created.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/State"
+      responses:
+        "200":
+          description: "State was created successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/State"
+        "400":
+          $ref: '#/components/responses/BadRequestError'   
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "412":
+          $ref: '#/components/responses/PreconditionFailedError'  
+        "500":
+          $ref: '#/components/responses/InternalServerError'           
+        default:
+          $ref: '#/components/responses/ApplicationError' 
+          
+  /states/{stateId}:
+    summary: Endpoint for handling States specified by their IDs.
+    description: Endpoint for handling States specified by their IDs.
+    parameters:
+      - name: stateId
+        in: path
+        description: "ID of State"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"        
+
+    get:
+      tags:
+      - "state"
+      summary: Read a State.
+      description: Read a single State by its ID.
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/State"
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "404":
+          $ref: '#/components/responses/NotFoundError'   
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "500":
+          $ref: '#/components/responses/InternalServerError'            
+        default:
+          $ref: '#/components/responses/ApplicationError'  
+          
+    delete:
+      tags:
+      - "state"
+      summary: Delete a State.
+      description: Removes a State from the database.
+      responses:
+        "204":
+          description: "no content"
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "404":
+          $ref: '#/components/responses/NotFoundError'   
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "500":
+          $ref: '#/components/responses/InternalServerError'           
+        default:
+          $ref: '#/components/responses/ApplicationError'
+          
+    put:
+      tags:
+      - "state"
+      summary: Update a State.
+      description: Updates an existing State in the database.
+      requestBody:
+        description: The State's properties to be updated.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/State"
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/State"
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "404":
+          $ref: '#/components/responses/NotFoundError'   
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "409":
+          $ref: '#/components/responses/ConflictError'   
+        "412":
+          $ref: '#/components/responses/PreconditionFailedError'    
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/ApplicationError'
+
+          
+  /phases/{phaseId}/comments:       
+    summary: Endpoint for handling comments.
+    description: Endpoint for handling comments belonging to a specific phase.
+    parameters:
+      - name: phaseId
+        in: path
+        description: "ID of the parent phase"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"
+          
+    get:
+      tags:
+      - "comment"
+      summary: Lists all comments belonging to a specific  phase by phaseId.
+      description: Returns all the comments for the specified  phase from the database.
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Comment" 
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "404":
+          $ref: '#/components/responses/NotFoundError'   
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "500":
+          $ref: '#/components/responses/InternalServerError'            
+        default:
+          $ref: '#/components/responses/ApplicationError'                  
+          
+    post:
+      tags:
+      - "comment"
+      summary: Add a comment belonging to a specific  phase by phaseId.
+      description: Add a new comment belonging to a specific  phase to the database.
+      requestBody:
+        description: The comment to be created.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Comment"
+      responses:
+        "200":
+          description: "comment was created successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comment"
+        "400":
+          $ref: '#/components/responses/BadRequestError'   
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "412":
+          $ref: '#/components/responses/PreconditionFailedError'  
+        "500":
+          $ref: '#/components/responses/InternalServerError'           
+        default:
+          $ref: '#/components/responses/ApplicationError'        
+
+
+  /demands/{demandId}/comments:       
+    summary: Endpoint for handling comments.
+    description: Endpoint for handling comments belonging to a specific  phase.
+    parameters:
+      - name: demandId
+        in: path
+        description: "ID of the parent  phase"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"
+          
+    get:
+      tags:
+      - "comment"
+      summary: Lists all comments belonging to a demand by demandId.
+      description: Returns all the comments for the demand from the database.
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Comment"   
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "404":
+          $ref: '#/components/responses/NotFoundError'   
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "500":
+          $ref: '#/components/responses/InternalServerError'            
+        default:
+          $ref: '#/components/responses/ApplicationError'                  
+          
+    post:
+      tags:
+      - "comment"
+      summary: Add a comment belonging to a specific demand by demandId.
+      description: Add a new comment belonging to a specific demand to the database.
+      requestBody:
+        description: The comment to be created.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Comment"
+      responses:
+        "200":
+          description: "comment was created successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comment"
+        "400":
+          $ref: '#/components/responses/BadRequestError'   
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "412":
+          $ref: '#/components/responses/PreconditionFailedError'  
+        "500":
+          $ref: '#/components/responses/InternalServerError'           
+        default:
+          $ref: '#/components/responses/ApplicationError'            
+                  
+
+  /comments/{commentId}:
+    summary: Endpoint for handling comment specified by their IDs.
+    description: Endpoint for handling comment specified by their IDs.
+    parameters:
+      - name: commentId
+        in: path
+        description: "ID of comment"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"   
+          
+    delete:
+      tags:
+      - "comment"
+      summary: Delete a comment.
+      description: Removes a comment from the database.
+      responses:
+        "204":
+          description: "no content"
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "404":
+          $ref: '#/components/responses/NotFoundError'   
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "500":
+          $ref: '#/components/responses/InternalServerError'           
+        default:
+          $ref: '#/components/responses/ApplicationError'
+          
+    put:
+      tags:
+      - "comment"
+      summary: Update a comment.
+      description: Updates an existing comment in the database.
+      requestBody:
+        description: The comment's properties to be updated.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Comment"
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/Comment"
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "404":
+          $ref: '#/components/responses/NotFoundError'   
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "409":
+          $ref: '#/components/responses/ConflictError'   
+        "412":
+          $ref: '#/components/responses/PreconditionFailedError'    
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/ApplicationError'
+
+  /variants:
+    summary: Endpoint for handling the variants.
+    description: Endpoint for execution operations on CRUD variants.
+    
+    get:
+      tags:
+      - "variant"
+      summary: Lists all variants.
+      description: Returns all the variants available in the database.
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Variant"
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'  
+        "403":
+          $ref: '#/components/responses/ForbiddenError'   
+        "404":
+          $ref: '#/components/responses/NotFoundError'     
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError'   
+        "500":
+          $ref: '#/components/responses/InternalServerError'   
+        default:
+          $ref: '#/components/responses/ApplicationError'  
+            
+    post:
+      tags:
+      - "variant"
+      summary: Add variant.
+      description: Add a new variant to the database.
+      requestBody:
+        description: The variant to be created.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Variant"
+      responses:
+        "200":
+          description: "variant was created successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Variant"
+        "400":
+          $ref: '#/components/responses/BadRequestError'   
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "412":
+          $ref: '#/components/responses/PreconditionFailedError'  
+        "500":
+          $ref: '#/components/responses/InternalServerError'           
+        default:
+          $ref: '#/components/responses/ApplicationError' 
+          
+  /variants/{variantId}:  
+    summary: Endpoint for handling variants specified by their IDs.
+    description: Endpoint for handling variants specified by their IDs.
+    parameters:
+      - name: variantId
+        in: path
+        description: "ID of variant to return"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"
+    
+    get:
+      tags:
+      - "variant"
+      summary: Read a variant.
+      description: Read a single variant by its ID.
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/Variant"
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "404":
+          $ref: '#/components/responses/NotFoundError'   
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "500":
+          $ref: '#/components/responses/InternalServerError'            
+        default:
+          $ref: '#/components/responses/ApplicationError'
+    
+    delete:
+      tags:
+      - "variant"
+      summary: Delete variant.
+      description: Removes a variant from the database.
+      responses:
+        "204":
+          description: "no content"
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "404":
+          $ref: '#/components/responses/NotFoundError'   
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "500":
+          $ref: '#/components/responses/InternalServerError'    
+        "412":  
+          $ref: '#/components/responses/PreconditionFailedError' 
+        default:
+          $ref: '#/components/responses/ApplicationError'
+          
+    put:
+      tags:
+      - "variant"
+      summary: Update variant.
+      description: Updates an existing variant in the database.
+      requestBody:
+        description: The variant's properties to be updated.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Variant"
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/Variant"
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "404":
+          $ref: '#/components/responses/NotFoundError'   
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "409":
+          $ref: '#/components/responses/ConflictError'   
+        "412":
+          $ref: '#/components/responses/PreconditionFailedError'    
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/ApplicationError'
+      
+  /variants/{variantId}/phases:
+    summary: Endpoint for handling  phases.
+    description: Endpoint for handling  phases belonging to a specific variant.
+    parameters:
+      - name: variantId
+        in: path
+        description: "ID of the parent variant"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"
+          
+    get:
+      tags:
+      - "phase"
+      summary: Lists all  phases.
+      description: Returns all the  phases for the specified variant from the database.
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Phase"
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "404":
+          $ref: '#/components/responses/NotFoundError'   
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "500":
+          $ref: '#/components/responses/InternalServerError'            
+        default:
+          $ref: '#/components/responses/ApplicationError'                  
+                  
+    post:
+      tags:
+      - "phase"
+      summary: Create new  phase.
+      description: Adds a new  phase to the variant specified by its ID.
+      requestBody:
+        description: The new  phase's properties.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Phase"
+      responses:
+        "200":
+          description: " phase was created successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Phase"
+        "400":
+          $ref: '#/components/responses/BadRequestError'   
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "412":
+          $ref: '#/components/responses/PreconditionFailedError'  
+        "500":
+          $ref: '#/components/responses/InternalServerError'           
+        default:
+          $ref: '#/components/responses/ApplicationError' 
+          
+  /phases/{phaseId}:
+    summary: Endpoint for handling  phases.
+    description: Endpoint for handling  phases specified by their ID.
+    parameters:
+      - name: phaseId
+        in: path
+        description: "ID of the  phase"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"
+    
+    get:
+      tags:
+      - "phase"
+      summary: Reads a  phase.
+      description: Reads one  phase from the database specified by its ID.
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/Phase"
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "404":
+          $ref: '#/components/responses/NotFoundError'   
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "500":
+          $ref: '#/components/responses/InternalServerError'            
+        default:
+          $ref: '#/components/responses/ApplicationError'
+          
+    delete:
+      tags:
+      - "phase"
+      summary: Delete  phase.
+      description: Removes a  phase from the database.
+      responses:
+        "204":
+          description: "no content"
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "404":
+          $ref: '#/components/responses/NotFoundError'   
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "412":  
+          $ref: '#/components/responses/PreconditionFailedError'   
+        "500":
+          $ref: '#/components/responses/InternalServerError'           
+        default:
+          $ref: '#/components/responses/ApplicationError'
+      
+    put:
+      tags:
+      - "phase"
+      summary: Update  phase.
+      description: Updates an existing  phase in the database.
+      requestBody:
+        description: The  phase's properties to be updated.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Phase"
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/Phase"
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "404":
+          $ref: '#/components/responses/NotFoundError'   
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "409":
+          $ref: '#/components/responses/ConflictError'   
+        "412":
+          $ref: '#/components/responses/PreconditionFailedError'    
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/ApplicationError'
+          
+          
+  /phases/{phaseId}/demands:
+    summary: Endpoint for handling demands.
+    description: Endpoint for handling demands belonging to a specific phase.
+    parameters:
+      - name: phaseId
+        in: path
+        description: "ID of the parent phase"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"
+          
+    get:
+      tags:
+      - "demand"
+      summary: Lists all demands belonging to a specific  phase by phaseId.
+      description: Returns all the demands for the specified  phase from the database.
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Demand"
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "404":
+          $ref: '#/components/responses/NotFoundError'   
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "500":
+          $ref: '#/components/responses/InternalServerError'            
+        default:
+          $ref: '#/components/responses/ApplicationError'                  
+                  
+    post:
+      tags:
+      - "demand"
+      summary: Add a demand belonging to a specific phase by phaseId.
+      description: Adds a new demand to the phase specified by its ID.
+      requestBody:
+        description: The new demand's properties.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Demand"
+      responses:
+        "200":
+          description: "succesful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Demand"
+        "400":
+          $ref: '#/components/responses/BadRequestError'   
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "412":
+          $ref: '#/components/responses/PreconditionFailedError'  
+        "500":
+          $ref: '#/components/responses/InternalServerError'           
+        default:
+          $ref: '#/components/responses/ApplicationError' 
+          
+          
+  /demands/{demandId}:
+    summary: Endpoint for handling demands.
+    description: Endpoint for handling demands specified by their ID.
+    parameters:
+      - name: demandId
+        in: path
+        description: "ID of the demand"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"
+    
+    get:
+      tags:
+      - "demand"
+      summary: Reads a demand.
+      description: Reads one demand from the database specified by its ID.
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/Demand"
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "404":
+          $ref: '#/components/responses/NotFoundError'   
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "500":
+          $ref: '#/components/responses/InternalServerError'            
+        default:
+          $ref: '#/components/responses/ApplicationError'
+          
+    delete:
+      tags:
+      - "demand"
+      summary: Delete demand.
+      description: Removes a demand from the database.
+      responses:
+        "204":
+          description: "no content"
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "404":
+          $ref: '#/components/responses/NotFoundError'   
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "412":  
+          $ref: '#/components/responses/PreconditionFailedError'   
+        "500":
+          $ref: '#/components/responses/InternalServerError'           
+        default:
+          $ref: '#/components/responses/ApplicationError'
+      
+    put:
+      tags:
+      - "demand"
+      summary: Update demand.
+      description: Updates an existing demand in the database.
+      requestBody:
+        description: The demand's properties to be updated.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Demand"
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/Demand"
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "403":
+          $ref: '#/components/responses/ForbiddenError'  
+        "404":
+          $ref: '#/components/responses/NotFoundError'   
+        "405":
+          $ref: '#/components/responses/MethodNotAllowedError' 
+        "409":
+          $ref: '#/components/responses/ConflictError'   
+        "412":
+          $ref: '#/components/responses/PreconditionFailedError'    
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/ApplicationError'
+     
+     
+    
+components:
+
+  securitySchemes:
+    oidc:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+      
+    Configuration:
+      description: The configuration as it is used in the CRUD service.
+      type: object
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+          description: The configuration' s internal ID
+          example: 123456
+        externalId: 
+          type: "string"
+          description: The external id as string.
+          example: "C0001"
+        name:
+          type: "string"
+          description: The configuration as String.
+          example: "Configuration 1"
+      required:
+        - name
+    
+    State:
+      description: The State as it is used in the CRUD service.
+      type: object
+      properties: 
+        id:
+          type: "integer"
+          format: "int64"
+          description: The State's internal ID.
+          example: 123456
+        name:
+          type: "string"
+          description: The State's name.
+          example: "failed"
+      required: 
+        - name
+      
+    Variant:
+      description: The variant as it is used in the CRUD service.
+      type: object
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+          description: The variant's internal ID.
+          example: 123456
+        name:
+          type: "string"
+          description: The variant's name.
+          example: "Variant"
+        creationInfo:
+          $ref: "#/components/schemas/CreationInfo"
+        modificationInfo:
+          $ref: "#/components/schemas/ModificationInfo"
+        objectVersionInfo:
+          $ref: "#/components/schemas/ObjectVersionInfo"
+      required:
+        - name
+        
+    Phase:
+      description: The phase as it is used in the CRUD service.
+      type: object
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+          description: The phase's internal ID.
+          example: 123456
+        variantId:
+          type: "integer"
+          format: "int64"
+          description: The ID of the phase's parent variant.
+          example: 123456
+        availableConfigurationIds:
+          type: array
+          items:
+            type: "integer"
+            format: "int64"
+          description: The configurations available in this phase.
+          example: [123456, 789123]
+        name:
+          type: "string"
+          description: The  phase's name.
+          example: "A 1.3"
+          pattern: '^[A-Z]( )?[0-9]\.[0-9]$'
+        creationInfo:
+          $ref: "#/components/schemas/CreationInfo"
+        modificationInfo:
+          $ref: "#/components/schemas/ModificationInfo"
+        objectVersionInfo:
+          $ref: "#/components/schemas/ObjectVersionInfo"
+      required:
+        - name
+        - variantId
+        - availableConfigurationIds
+        
+    Demand:
+      description: The demand as it is used in the CRUD service.
+      type: object
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+          description: The demand's internal ID.
+          example: 123456
+        phaseId:
+          type: "integer"
+          format: "int64"
+          description: The parent phase's internal ID.
+          example: 123456
+        configuration:
+          $ref: "#/components/schemas/Configuration"
+        state:
+          $ref: "#/components/schemas/State"
+        usage:
+          type: "string"
+          description: The demand's usage.
+          example: "Sample Usage"
+        creationInfo:
+          $ref: "#/components/schemas/CreationInfo"
+        modificationInfo:
+          $ref: "#/components/schemas/ModificationInfo"
+        objectVersionInfo:
+          $ref: "#/components/schemas/ObjectVersionInfo"
+      required:
+        - phaseId
+        - configuration
+        - usage
+        
+    Comment:
+      description: A comment created by a user.
+      type: object
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+          description: The comment's internal ID.
+          example: 123456
+        comment:
+          type: "string"
+          description: The comment as it was enetered by the user.
+          example: "Some comment"
+        phaseId:
+          type: "integer"
+          format: "int64"
+          example: 123456
+        demandId:
+          type: "integer"
+          format: "int64"
+          example: 123456
+        creationInfo:
+          $ref: "#/components/schemas/CreationInfo"
+      required:
+        - comment
+        
+    ModificationInfo:
+      description: The modification info contains meta information about the data object's last modification.
+      type: object
+      properties:
+        updatedBy:
+          type: "string"
+          description: The unique ID of the user, who committed the latest modifications.
+          example: "suessmma"
+        updatedAt:
+          type: "string"
+          format: "date-time"
+          description: The date and time when the data object was updated.
+          example: "2020-02-23T18:25:43.511Z"
+      required:
+        - updatedBy
+        - updatedAt
+  
+    ObjectVersionInfo:
+      description: The version info describes the current version of the objects in this application.
+      type: object
+      properties:
+        objectVersion:
+            type: "integer"
+            format: "int32"
+            description: The object's internal version.
+            example: 1
+      required:
+        - objectVersion
+  
+    CreationInfo:
+      description: The creation info contains meta information about the data object's creation.
+      type: object
+      properties:
+        createdBy:
+          type: "string"
+          description: The unique ID of the user, who created the data object.
+          example: "suessmma"
+        createdAt:
+          type: "string"
+          format: "date-time"
+          description: The date and time when the data object was created.
+          example: "2020-02-23T18:25:43.511Z"
+      required:
+        - createdBy
+        - createdAt
+        
+        
+    ApplicationErrorResponse:
+      description: Scheme describing an internal application error, which will be shown to the user.
+      type: object
+      properties:
+        errorCode:
+          type: "integer"
+          format: "int64"
+          description: A unique error code defined in the service to specify the cause of the error.
+          example: 15
+        title:
+          type: "string"
+          description: A concise description of the error. 
+          example: "Unknown ID"
+        instance:
+          type: "string"
+          description: A unique error ID.
+          example: "bbcec01a-da1c-4437-8f77-17ede1bb2d2a"
+        status:
+          type: "integer"
+          description: The HTTP status code.
+          example: 500
+        detail:
+          type: "string"
+          description: Optional attribute to show the stacktrace in the response.
+          example: "com.bmw.heat.exception.SomeException: SomeException error occurred!\r\n\tat..."
+      required:
+        - errorCode
+        - title
+        - instance
+        - status
+        
+        
+  responses:
+    BadRequestError:
+      description: A bad request error occured.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApplicationErrorResponse"   
+  
+    UnauthorizedError:
+      description: A unauthorized error occured.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApplicationErrorResponse" 
+            
+    ForbiddenError:
+      description: A forbidden error occured.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApplicationErrorResponse" 
+            
+    NotFoundError:
+      description: A not found error occured.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApplicationErrorResponse"  
+            
+    MethodNotAllowedError:
+      description: A method not allowed error occured.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApplicationErrorResponse"      
+  
+    ConflictError:
+      description: Another request has updated or deleted the same object.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApplicationErrorResponse"  
+            
+    PreconditionFailedError:
+      description: A precondition was violated
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApplicationErrorResponse"
+            
+    InternalServerError:
+      description: A internal server error occured.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApplicationErrorResponse"              
+            
+    ApplicationError:
+      description: An other error occurred. The response content describes the error's details.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApplicationErrorResponse"
